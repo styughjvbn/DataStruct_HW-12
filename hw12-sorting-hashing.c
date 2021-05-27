@@ -222,7 +222,7 @@ int insertionSort(int *a)//삽입 정렬
 	return 0;
 }
 
-int bubbleSort(int *a)
+int bubbleSort(int *a)//버블 정렬
 {
 	int i, j, t;
 
@@ -231,11 +231,11 @@ int bubbleSort(int *a)
 
 	printArray(a);
 
-	for(i = 0; i < MAX_ARRAY_SIZE; i++)
+	for(i = 0; i < MAX_ARRAY_SIZE; i++)//처음부터 끝까지 반복한다.
 	{
-		for (j = 0; j < MAX_ARRAY_SIZE; j++)
+		for (j = 1; j < MAX_ARRAY_SIZE; j++)//두번째 값부터 끝까지 반복한다.
 		{
-			if (a[j-1] > a[j])
+			if (a[j-1] > a[j])//해당 인덱스의 값이 전 인덱스의 값보다 작다면 둘의 값을 바꾼다.
 			{
 				t = a[j-1];
 				a[j-1] = a[j];
@@ -250,7 +250,7 @@ int bubbleSort(int *a)
 	return 0;
 }
 
-int shellSort(int *a)
+int shellSort(int *a)//셸 정렬
 {
 	int i, j, k, h, v;
 
@@ -259,11 +259,11 @@ int shellSort(int *a)
 
 	printArray(a);
 
-	for (h = MAX_ARRAY_SIZE/2; h > 0; h /= 2)
+	for (h = MAX_ARRAY_SIZE/2; h > 0; h /= 2)//기준 간격을 정한다. 12부터 시작이라면 6->3->1로 간격이 변한다.
 	{
-		for (i = 0; i < h; i++)
+		for (i = 0; i < h; i++)//만약 배열의 길이가 12고 기준간격이 6이라면 (0,6)->(1,7)->(2,8)->(3,9)->(4,10)->(5,11)->(6,12)끼리 정렬이 되게 한다. 다음 집합이 정렬되게 한다.
 		{
-			for(j = i + h; j < MAX_ARRAY_SIZE; j += h)
+			for(j = i + h; j < MAX_ARRAY_SIZE; j += h)//삽입정렬과 같다. 전 인덱스의 값이 자신보다 크다면 자리를 바꾸며 나아간다 전 인덱스의 값이 자신보다 작다면 멈춘다.
 			{
 				v = a[j];
 				k = j;
@@ -282,40 +282,41 @@ int shellSort(int *a)
 	return 0;
 }
 
-int quickSort(int *a, int n)
+int quickSort(int *a, int n)//퀵 정렬
 {
 	int v, t;
 	int i, j;
 
 	if (n > 1)
 	{
-		v = a[n-1];
-		i = -1;
-		j = n - 1;
+		v = a[n-1];//집합의 마지막 원소를 피봇으로 잡는다.
+
+		i = -1;//피봇보다 큰 값을 가지는 인덱스를 저장한다.
+		j = n - 1;//피봇보다 작은 값을 가지는 인덱스를 저장한다.
 
 		while(1)
 		{
-			while(a[++i] < v);
-			while(a[--j] > v);
+			while(a[++i] < v);//피봇보다 큰 값을 가지는 인덱스를 찾는다.
+			while(a[--j] > v);//피봇보다 작은 값을 가지는 인덱스를 찾는다.
 
-			if (i >= j) break;
-			t = a[i];
+			if (i >= j) break;//찾은 각각의 인덱스중에 큰 값을 가지는 인덱스가 작은 값을 가지는 인덱스보다 크다면 반복을 종료한다.
+			t = a[i];//각각의 인덱스의 값을 교환한다.
 			a[i] = a[j];
 			a[j] = t;
 		}
-		t = a[i];
+		t = a[i];//반복이 종료되면 피봇과 큰값을 가지는 인덱스의 값과 교환한다.
 		a[i] = a[n-1];
 		a[n-1] = t;
-
-		quickSort(a, i);
-		quickSort(a+i+1, n-i-1);
+		//한 사이클이 종료되면 피봇의 왼쪽집합은 피봇보다 큰 값들을 가지고 오른쪽 집합은 피봇보다 작은 값을 가진다.
+		quickSort(a, i);//오른쪽 집합을 가지고 함수를 호출한다.
+		quickSort(a+i+1, n-i-1);//왼쪽 집합을 가지고 함수를 호출한다.
 	}
 
 
 	return 0;
 }
 
-int hashCode(int key) {
+int hashCode(int key) {//해쉬함수이다
    return key % MAX_HASH_TABLE_SIZE;
 }
 
