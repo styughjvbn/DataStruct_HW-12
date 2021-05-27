@@ -317,10 +317,10 @@ int quickSort(int *a, int n)//퀵 정렬
 }
 
 int hashCode(int key) {//해쉬함수이다
-   return key % MAX_HASH_TABLE_SIZE;
+   return key % MAX_HASH_TABLE_SIZE;//간단한 제산함수이다
 }
 
-int hashing(int *a, int **ht)
+int hashing(int *a, int **ht)//정적해싱이다
 {
 	int *hashtable = NULL;
 
@@ -345,40 +345,40 @@ int hashing(int *a, int **ht)
 	int index = -1;
 	for (int i = 0; i < MAX_ARRAY_SIZE; i++)
 	{
-		key = a[i];
-		hashcode = hashCode(key);
+		key = a[i];//기존의 배열에서 값을 받아온다.
+		hashcode = hashCode(key);//값을 해쉬함수에 넣고 저장할 공간의 인덱스를 받는다.
 		/*
 		printf("key = %d, hashcode = %d, hashtable[%d]=%d\n", key, hashcode, hashcode, hashtable[hashcode]);
 		*/
-		if (hashtable[hashcode] == -1)
+		if (hashtable[hashcode] == -1)//저장할 공간이 비어있다면
 		{
-			hashtable[hashcode] = key;
-		} else 	{
+			hashtable[hashcode] = key;//값을 입력한다.
+		} else 	{//충돌이 발생했다면
 
 			index = hashcode;
 
-			while(hashtable[index] != -1)
+			while(hashtable[index] != -1)//선형 조사법 - 다음 인덱스가 차 있는지 검사한다.
 			{
 				index = (++index) % MAX_HASH_TABLE_SIZE;
 				/*
 				printf("index = %d\n", index);
 				*/
 			}
-			hashtable[index] = key;
+			hashtable[index] = key;//비어있는 인덱스에 값을 넣는다.
 		}
 	}
 
 	return 0;
 }
 
-int search(int *ht, int key)
+int search(int *ht, int key)//해쉬테이블을 이용하여 값을 찾는다.
 {
-	int index = hashCode(key);
+	int index = hashCode(key);//찾는 값을 해쉬함수로 돌려서 저장한 인덱스를 찾는다.
 
-	if(ht[index] == key)
+	if(ht[index] == key)//찾는 값이 맞다면 인덱스를 리턴한다.
 		return index;
 
-	while(ht[++index] != key)
+	while(ht[++index] != key)//찾는 값과 다르다면 선형조사법을 이용하여 다시 찾는다.
 	{
 		index = index % MAX_HASH_TABLE_SIZE;
 	}
