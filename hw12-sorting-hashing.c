@@ -48,6 +48,7 @@ int main()
 
 	srand(time(NULL));
 
+	printf("-----------------------[2018038031 서종원]------------------------------\n");
 	do{
 		printf("----------------------------------------------------------------\n");
 		printf("                        Sorting & Hashing                       \n");
@@ -122,7 +123,7 @@ int main()
 	return 1;
 }
 
-int initialize(int** a)
+int initialize(int** a)//배열 생성 및 초기화
 {
 	int *temp = NULL;
 
@@ -140,14 +141,14 @@ int initialize(int** a)
 	return 0;
 }
 
-int freeArray(int *a)
+int freeArray(int *a)//배열을 해제한다.
 {
 	if(a != NULL)
 		free(a);
 	return 0;
 }
 
-void printArray(int *a)
+void printArray(int *a)//배열을 출력한다.
 {
 	if (a == NULL) {
 		printf("nothing to print.\n");
@@ -162,7 +163,7 @@ void printArray(int *a)
 }
 
 
-int selectionSort(int *a)
+int selectionSort(int *a)//선택 정렬
 {
 	int min;
 	int minindex;
@@ -171,30 +172,30 @@ int selectionSort(int *a)
 	printf("Selection Sort: \n");
 	printf("----------------------------------------------------------------\n");
 
-	printArray(a);
+	printArray(a);//정렬하기 전 배열 출력
 
-	for (i = 0; i < MAX_ARRAY_SIZE; i++)
+	for (i = 0; i < MAX_ARRAY_SIZE; i++)//배열의 끝까지 반복한다.
 	{
-		minindex = i;
+		minindex = i;//임의로 i인덱스의 값을 최소값으로 선택한다.
 		min = a[i];
-		for(j = i+1; j < MAX_ARRAY_SIZE; j++)
+		for(j = i+1; j < MAX_ARRAY_SIZE; j++)//i인덱스 다음 인덱스의 값부터 배열의 끝까지 반복한다.
 		{
-			if (min > a[j])
+			if (min > a[j])//최소값을 찾는다.
 			{
 				min = a[j];
 				minindex = j;
 			}
 		}
-		a[minindex] = a[i];
-		a[i] = min;
+		a[minindex] = a[i];//최소값을 가지는 인덱스에 i인덱스 값을 넣는다.
+		a[i] = min;//i인덱스에 최소값을 넣는다. 이러면 0번 인덱스부터 오름차순으로 정렬이 된다.
 	}
 
 	printf("----------------------------------------------------------------\n");
-	printArray(a);
+	printArray(a);//정렬 후 배열 출력
 	return 0;
 }
 
-int insertionSort(int *a)
+int insertionSort(int *a)//삽입 정렬
 {
 	int i, j, t;
 
@@ -203,16 +204,16 @@ int insertionSort(int *a)
 
 	printArray(a);
 
-	for(i = 1; i < MAX_ARRAY_SIZE; i++)
+	for(i = 1; i < MAX_ARRAY_SIZE; i++)//배열의 2번째 값부터 정렬한다.
 	{
-		t = a[i];
-		j = i;
-		while (a[j-1] > t && j > 0)
+		t = a[i];//알맞은 곳에 삽입할 값을 저장한다.
+		j = i;//삽입할 값의 인덱스를 저장한다.
+		while (a[j-1] > t && j > 0)//삽입될 값보다 큰 값들이 뒤로 한칸씩 밀려난다.
 		{
-			a[j] = a[j-1];
+			a[j] = a[j-1];//
 			j--;
 		}
-		a[j] = t;
+		a[j] = t;//삽입될 값보다 작은 값을 가지는 인덱스의 뒤에서 반복이 멈추고 뒤에 삽입이 된다.
 	}
 
 	printf("----------------------------------------------------------------\n");
